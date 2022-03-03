@@ -37,6 +37,9 @@
             .fail(() => {
               jQuery('#unauthorized').show();
               jQuery('#authorized').hide();
+            })
+            .always(() => {
+              console.log('ajax finished');
             });
           });
         };
