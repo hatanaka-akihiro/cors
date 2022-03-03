@@ -17,10 +17,10 @@
           })
           .then(({count, workitems}) => {
             workitems.forEach(workitem => {
-              const link = jQuery('<li><a>');
+              const link = jQuery('<a>');
               link.append(workitem.processInstanceTitle);
               link.attr('href', 'https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=' + workitem.processInstanceId + '&workitemId=' + workitem.id);
-              link.appendTo(allocated);
+              jQuery('<li>').append(link).appendTo(allocated);
             });
         });
       });
