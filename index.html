@@ -27,7 +27,7 @@
                 withCredentials: true
               }
             })
-            .then(({count, workitems}) => {
+            .done(({count, workitems}) => {
               workitems.forEach(workitem => {
                 const link = jQuery('<a>');
                 link.append(`${workitem.processModelInfoName} : ${workitem.processInstanceTitle}`);
