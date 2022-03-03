@@ -20,26 +20,22 @@
       jQuery(document).ready(() => {
         const loadTasks = (selector, reportId) => {
           const tasks = jQuery(selector).empty();
-          jQuery
-            .ajax({
-              url: `https://bpm.questetra.net/API/OR/Workitem/list?reportId=${reportId}&limit=20`,
-              xhrFields: {
-                withCredentials: true
+          fetch(`https://bpm.questetra.net/API/OR/Workitem/list?reportId=${reportId}&limit=20`, {
+            credentials: 'include'
+          })
+            .then(response => {
+              if(!response.ok()) {
+                jQuery('#unauthorized').show();
+                jQuery('#authorized').hide();
+                return;
               }
-            })
-            .done(({count, workitems}) => {
+              const {count, workitems} = response.json();
               workitems.forEach(workitem => {
                 const link = jQuery('<a>');
                 link.append(`${workitem.processModelInfoName} : ${workitem.processInstanceTitle}`);
                 link.attr('href', `https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=${workitem.processInstanceId}&workitemId=${workitem.id}`);
                 jQuery('<li>').append(link).appendTo(tasks);
-              })
-            .fail(() => {
-              jQuery('#unauthorized').show();
-              jQuery('#authorized').hide();
-            })
-            .always(() => {
-              console.log('ajax finished');
+              });
             });
           });
         };
