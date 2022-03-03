@@ -1,3 +1,24 @@
 <html>
-  <body>test</body>
+  <body>
+    <h3>マイタスク</h3>
+    <ul id="allocated">
+    </ul>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      jQuery(document).ready(() => {
+        const allocated = jQuery('#allocated').empty();
+        jQuery
+          .get('https://bpm.questetra.net/API/OR/Workitem/list?reportId=ALLOCATED&limit=20')
+          .then(({count, workitems}) => {
+            workitems.forEach(workitem => {
+              const link = jQuery('<li><a>');
+              link.append(workitem.processInstanceTitle);
+              link.attr('href', 'https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=' + workitem.processInstanceId + '&workitemId=' + workitem.id);
+              link.appendTo(allocated);
+            });
+        });
+      });
+    </script>
+  </body>
 </html>
