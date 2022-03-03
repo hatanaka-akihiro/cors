@@ -4,25 +4,34 @@
     <ul id="allocated">
     </ul>
     
+    <h3>引き受け待ち</h3>
+    <ul id="offered">
+    </ul>
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
       jQuery(document).ready(() => {
-        const allocated = jQuery('#allocated').empty();
-        jQuery
-          .ajax({
-            url: 'https://bpm.questetra.net/API/OR/Workitem/list?reportId=ALLOCATED&limit=20',
-            xhrFields: {
-              withCredentials: true
-            }
-          })
-          .then(({count, workitems}) => {
-            workitems.forEach(workitem => {
-              const link = jQuery('<a>');
-              link.append(workitem.processInstanceTitle);
-              link.attr('href', 'https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=' + workitem.processInstanceId + '&workitemId=' + workitem.id);
-              jQuery('<li>').append(link).appendTo(allocated);
-            });
-        });
+        loadTasks('allocated', 'ALLOCATED');
+        loadTasks('offered', 'OFFERED'));
+        
+        const loadTasks = (id, reportId) => {
+          const tasks = jQuery(id).empty();
+          jQuery
+            .ajax({
+              url: `https://bpm.questetra.net/API/OR/Workitem/list?reportId=${reportId}&limit=20`,
+              xhrFields: {
+                withCredentials: true
+              }
+            })
+            .then(({count, workitems}) => {
+              workitems.forEach(workitem => {
+                const link = jQuery('<a>');
+                link.append(workitem.processInstanceTitle);
+                link.attr('href', 'https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=' + workitem.processInstanceId + '&workitemId=' + workitem.id);
+                jQuery('<li>').append(link).appendTo(tasks);
+              });
+          });
+        };
       });
     </script>
   </body>
