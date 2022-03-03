@@ -11,9 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
       jQuery(document).ready(() => {
-        loadTasks('allocated', 'ALLOCATED');
-        loadTasks('offered', 'OFFERED');
-        
         const loadTasks = (id, reportId) => {
           const tasks = jQuery(id).empty();
           jQuery
@@ -32,6 +29,9 @@
               });
           });
         };
+
+        loadTasks('allocated', 'ALLOCATED');
+        loadTasks('offered', 'OFFERED');
       });
     </script>
   </body>
