@@ -24,7 +24,7 @@
             credentials: 'include'
           })
             .then(response => {
-              if(!response.ok()) {
+              if(!response.ok) {
                 jQuery('#unauthorized').show();
                 jQuery('#authorized').hide();
                 return;
