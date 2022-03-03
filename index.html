@@ -9,7 +9,12 @@
       jQuery(document).ready(() => {
         const allocated = jQuery('#allocated').empty();
         jQuery
-          .get('https://bpm.questetra.net/API/OR/Workitem/list?reportId=ALLOCATED&limit=20')
+          .ajax({
+            url: 'https://bpm.questetra.net/API/OR/Workitem/list?reportId=ALLOCATED&limit=20'
+            xhrFields: {
+              withCredentials: true
+            }
+          })
           .then(({count, workitems}) => {
             workitems.forEach(workitem => {
               const link = jQuery('<li><a>');
