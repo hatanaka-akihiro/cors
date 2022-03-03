@@ -1,12 +1,19 @@
 <html>
   <body>
-    <h3>マイタスク</h3>
-    <ul id="allocated">
-    </ul>
+    <div id="authorized">
+      <h3>マイタスク</h3>
+      <ul id="allocated">
+      </ul>
+
+      <h3>引き受け待ち</h3>
+      <ul id="offered">
+      </ul>
+    </div>
     
-    <h3>引き受け待ち</h3>
-    <ul id="offered">
-    </ul>
+    <div id="unauthorized" style="display: none;">
+      <div>以下よりログインした後、ページを再更新してください。</div>
+      <a target="_blank" href="https://bpm.questetra.net/Login_show">ログインページ</a>
+    </div>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
@@ -27,6 +34,10 @@
                 link.attr('href', `https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=${workitem.processInstanceId}&workitemId=${workitem.id}`);
                 jQuery('<li>').append(link).appendTo(tasks);
               });
+            .fail(() => {
+              jQuery('#unauthorized').show();
+              jQuery('#authorized').hide();
+            });
           });
         };
 
