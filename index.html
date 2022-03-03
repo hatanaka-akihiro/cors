@@ -11,8 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
       jQuery(document).ready(() => {
-        const loadTasks = (id, reportId) => {
-          const tasks = jQuery(id).empty();
+        const loadTasks = (selector, reportId) => {
+          const tasks = jQuery(selector).empty();
           jQuery
             .ajax({
               url: `https://bpm.questetra.net/API/OR/Workitem/list?reportId=${reportId}&limit=20`,
@@ -30,8 +30,8 @@
           });
         };
 
-        loadTasks('allocated', 'ALLOCATED');
-        loadTasks('offered', 'OFFERED');
+        loadTasks('#allocated', 'ALLOCATED');
+        loadTasks('#offered', 'OFFERED');
       });
     </script>
   </body>
