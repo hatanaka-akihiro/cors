@@ -26,7 +26,7 @@
             .then(({count, workitems}) => {
               workitems.forEach(workitem => {
                 const link = jQuery('<a>');
-                link.append(workitem.processInstanceTitle);
+                link.append(`${workitem.processModelInfoName} : ${workitem.processInstanceTitle}`);
                 link.attr('href', 'https://bpm.questetra.net/OR/ProcessInstance/view?processInstanceId=' + workitem.processInstanceId + '&workitemId=' + workitem.id);
                 jQuery('<li>').append(link).appendTo(tasks);
               });
