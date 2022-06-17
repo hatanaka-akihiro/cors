@@ -20,7 +20,7 @@ const listProcessInstances = async (username, password, criteriaObj, start, limi
       Authorization: 'Basic ' + btoa(username + ':' + password)
     })
   });
-  return response.body;
+  return response.json();
 };
 
 export default {
