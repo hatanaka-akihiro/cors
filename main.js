@@ -46,6 +46,7 @@ const user_onReady = () => {
 			let log = qbpms.form.get('q_log');
 			log += `${pid}: ${success}\n`;
 			qbpms.form.set('q_log', log);
+			qbpms.form.set('q_progress', `${i + 1} / ${result.processInstances.length}`);
 		}
 	};
     
