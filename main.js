@@ -36,12 +36,13 @@ const user_onReady = () => {
       			sortDirection: 'ASC'
     		};
 	    
-		const result = await Apis.listProcessInstances(username, password, criteria, 0, 1000);
+		const result = await listProcessInstances(username, password, criteria, 0, 1000);
 
+		qbpms.form.set('q_progress', `0 / ${result.processInstances.length}`);
 		for (let i = 0; i < result.processInstances.length; i++) {
 			const pi = result.processInstances[i];
 			const pid = pi.processInstanceId;
-			const success = await Apis.stopProcessInstance(username, password, pid);
+			const success = await stopProcessInstance(username, password, pid);
 			
 			let log = qbpms.form.get('q_log');
 			log += `${pid}: ${success}\n`;
